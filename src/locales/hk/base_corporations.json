@@ -1,12 +1,12 @@
 {
   "You start with 1 titanium production and 42 MC.":"遊戲一開始時有42MC,增加鈦金屬產能1格",
-  "Effect: Each time any Jovian tag is put into play, including this, increase your MC production 1 step.":"效果:每次當有木星標誌被打出時(包括本牌),增加你的MC產能1格",
+  "Effect: Each time any Jovian tag is put into play, including this, increase your MC production 1 step.":"效果:每次當有木星標誌被打出時(包括本卡),增加你的MC產能1格",
 
-  "You start with 45 MC. Increase your MC production 2 steps. 1 VP per 2 animals on this card.":"遊戲一開始時有45MC。增加產能2格。牌上每2個動物資源1分",
-  "Effect: When you play an animal or plant tag, including<br> this, add 1 animal<br> to this card.":"效果:當你打出動物或植物標誌時(包括本牌),在此牌上放置1個動物資源",
+  "You start with 45 MC. Increase your MC production 2 steps. 1 VP per 2 animals on this card.":"遊戲一開始時有45MC。增加產能2格。卡上每2個動物資源1分",
+  "Effect: When you play an animal or plant tag, including<br> this, add 1 animal<br> to this card.":"效果:當你打出動物或植物標誌時(包括本卡),在此卡上放置1個動物資源",
 
-  "You start with 50 MC. As your first action, reveal cards from the deck until you have revealed 3 Venus-tag cards. Take those into hand and discard the rest.":"遊戲一開始時有50MC。作為你的第一個行動,展示項目牌庫直到開出3張帶有金星標誌的牌。把這3張牌加入手中,並棄掉剩餘展示的牌",
-  "Effect: Your Venus requirements are +/- 2 steps, your choice in each case.":"效果:你打出的牌中,受到金星改造度條件限制時 +/- 2格",
+  "You start with 50 MC. As your first action, reveal cards from the deck until you have revealed 3 Venus-tag cards. Take those into hand and discard the rest.":"遊戲一開始時有50MC。作為你的第一個行動,展示項目牌庫直到開出3張帶有金星標誌的卡。把這3張卡加入手中,並棄掉剩餘展示的卡",
+  "Effect: Your Venus requirements are +/- 2 steps, your choice in each case.":"效果:你打出的卡中,受到金星改造度條件限制時 +/- 2格",
 
 
   "You start with 3 MC production and 44 MC.":"遊戲一開始時有44MC,增加MC產能3格",
@@ -29,7 +29,7 @@
   "Effect: Your may use heat as MC. You may not use MC as heat.":"效果:你可以用熱能資源代替MC使用,但不用用MC代替熱能資源使用",
 
   "You start with 45 MC. As your first action, fund an award for free.":"遊戲一開始時有45MC。作為你的起始行動,你可以免費資助一個獎項",
-  "Effect: When you play a card with a NON-NEGATIVE VP icon, including this, gain 3MC.":"效果:當你打出一張有非負分圖標的牌(包括本牌)時,獲得3MC",
+  "Effect: When you play a card with a NON-NEGATIVE VP icon, including this, gain 3MC.":"效果:當你打出一張有非負分圖標的卡(包括本卡)時,獲得3MC",
 
   "You start with 50MC. Increase your MC production 5 steps. Gain 5 titanium.":"遊戲一開始時有50MC。增加你的MC產能5格,獲得5個鈦金屬資源",
   "Effect: When you buy a card to hand, pay 5MC instead of 3, including the starting hand.":"效果:當你購買手牌時,你需要支付5MC而非原本的3MC,包括起始的手牌",
@@ -53,8 +53,8 @@
   "You start with 1 titanium production, and 38 MC.":"遊戲一開始時有38MC,增加鈦金屬產能1格",
 
   "You start with 42 MC. As your first action, reveal cards from the deck until you have revealed 2 cards with a floater icon on it. Take those 2 cards into hand and discard the rest.":"遊戲一開始時有42MC。作為你的第一個行動,展示項目牌庫直到開出2張帶有雲圖標的牌。把這2張牌加入手中,並棄掉剩餘展示的牌。",
-  "Action: Add a floater to ANY card.":"行動:放置1個雲資源到任意卡牌",
-  "1 VP per 3 floaters on this card.":"本牌上每3個雲資源獲得1分",
+  "Action: Add a floater to ANY card.":"行動:放置1個雲資源到任意卡",
+  "1 VP per 3 floaters on this card.":"本卡上每3個雲資源獲得1分",
 
   "As you first action in the game, draw 3 cards. Start with 45MC.":"遊戲一開始時有45MC。作為你的第一個行動,抽3張牌",
   "Effect: Your temperature, oxygen and ocean requirements are +2 or -2 steps, your choice in each case.":"效果:你打牌時的 溫度/氧氣濃度/海洋 要求 +2格或-2格",
@@ -73,10 +73,10 @@
 
   "Action: Use a blue card action that has already been used this generation":"行動:執行一次本時代已經使用過的藍卡行動" ,
 
-  "Effect: When you play an Earth tag, including this, draw a card.":"效果：你打出的牌上每有一個地球標誌，包括此卡，抽一張牌",
+  "Effect: When you play an Earth tag, including this, draw a card.":"效果：你打出的卡上每有一個地球標誌，包括此卡，抽一張卡",
   "You start with 1 titanium production and 38 MC.":"遊戲一開始時有38MC,增加鈦金屬產能1格。",
   
-  "Effect: When you play an Science tag, you pay 2MC less for it.":"效果：你打出的牌上每有一個科學標誌，你少為其支付2MC",
+  "Effect: When you play an Science tag, you pay 2MC less for it.":"效果：你打出的卡上每有一個科學標誌，你少為其支付2MC",
   "You start with 37 MC. As your first action, draw 3 Prelude cards, and play one of them. Discard the other two.":"遊戲一開始時有37MC，作為你的第一個行動，你必須抽三張序章卡，打出其中一張，然後棄掉剩餘兩張",
 
   "Action:If your Terraform Rating was raised this generation, you may pay 3 MC to raise it 1 step more.":"行動：如果你的改造度在本時代有過提升，你可以支付3元來提升一點改造度。",
@@ -93,19 +93,19 @@
   "You start with 47 MC. As your first action, place a greenery tile and raise the oxygen 1 step.":"遊戲一開始時有47元。作為第一個行動，放置一個綠化板塊並提升1格氧氣濃度。",
   
   "Effect: When a player causes another player to decrease production or lose resources, pay 3MC to the victim, or as much as possible.":"效果：當某玩家使另一玩家產能/資源受損，你向產能/資源受損的玩家支付3元。若你擁有金錢不足3元則改為支付全部擁有的金錢。",
-  "You start with 48 MC. Increase your MC production 4 steps. ALL OPPONENTS DECREASE THEIR MC PRODUCTION 2 STEPS. THIS DOES NOT TRIGGER THE EFFECT BELOW.":"遊戲一開始時有48MC。增加4格MC產能。所有對手各減少2格MC產能，本次產能受損不會觸發公司卡牌上的效果。",
+  "You start with 48 MC. Increase your MC production 4 steps. ALL OPPONENTS DECREASE THEIR MC PRODUCTION 2 STEPS. THIS DOES NOT TRIGGER THE EFFECT BELOW.":"遊戲一開始時有48MC。增加4格MC產能。所有對手各減少2格MC產能，本次產能受損不會觸發公司卡上的效果。",
   
   "Effect: When you play a building tag, including this, gain 1 microbe to this card, or remove 2 microbes here and raise your plant production 1 step.":"效果：每當你打出1個建築標誌，包括本卡上的建築標誌，放置1個微生資源到本卡上，或移除本卡上2個微生物資源以增加1格植物產能。",
   "You start with 38 MC and 1 steel production.":"遊戲一開始時有38MC,增加鋼鐵產能1格",
   
   "Effect: when a microbe tag is played, incl. this, THAT PLAYER gains 2 MC, or adds a microbe to THAT card, and you gain 2 MC.":"效果：當任何玩家打出1個微生物標誌，包括本卡上的微生物標誌，那名玩家獲得2MC，或放置1個微生物資源在那張卡上，而你獲得2MC",
-  "You start with 44 MC. As your first action, reveal cards until you have revealed a microbe tag. Take that card into hand and discard the rest.":"遊戲一開始時有44MC。作為你的第一個行動,展示項目牌庫直到開出1張帶有微生物標誌的牌。把這那張牌加入手中,並棄掉剩餘展示的牌",
+  "You start with 44 MC. As your first action, reveal cards until you have revealed a microbe tag. Take that card into hand and discard the rest.":"遊戲一開始時有44MC。作為你的第一個行動,展示項目牌庫直到開出1張帶有微生物標誌的卡。把這那張卡加入手中,並棄掉剩餘展示的卡",
 
   "You start with 1 plant production and 47 MC":"遊戲一開始時有47MC,增加植物產能1格",
-  "Effect: For each step you increase the production of a resource, including this, you also gain that resource.":"效果：包括本牌在內，每當你增加1格標準資源產能，獲得1個對應資源。",
+  "Effect: For each step you increase the production of a resource, including this, you also gain that resource.":"效果：包括本卡在內，每當你增加1格標準資源產能，獲得1個對應資源。",
   
   "You start with 1 steel production, and 35 MC":"遊戲一開始時有35MC,增加鋼鐵產能1格",
-  "Action: Use a blue card action that has already been used this generation.":"行動：選擇一張本時代已執行行動的藍色卡牌，再次執行該行動"
+  "Action: Use a blue card action that has already been used this generation.":"行動：選擇一張本時代已執行行動的藍色卡，再次執行該行動"
 
 
 }
