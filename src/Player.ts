@@ -1349,13 +1349,14 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
     }
 
 	private skipRound(game: Game): PlayerInput {
-      return new SelectCard(
-          "Sell patents to skip Round(s)",
+      let result = new SelectCard(
+          "Sell patents and skip Round(s)",
+          "Sell",
           this.cardsInHand,
           (foundCards: Array<IProjectCard>) => {
 
             this.onStandardProject(StandardProjectType.SELLING_PATENTS);
-			this.skippedRound = foundCards.length;
+            this.megaCredits += foundCards.length;
             foundCards.forEach((card) => {
               for (let i = 0; i < this.cardsInHand.length; i++) {
                 if (this.cardsInHand[i].name === card.name) {
@@ -1365,6 +1366,7 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
               }
               game.dealer.discard(card);
             });
+			this.skippedRound = foundCards.length;
             game.log(
               LogMessageType.DEFAULT,
               "${0} sold ${1} patents and will skip ${1} actions",
@@ -1372,10 +1374,12 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
               new LogMessageData(LogMessageDataType.STRING, foundCards.length.toString()),
             );
             return undefined;
-          }, this.cardsInHand.length
-      );
-    }	
-	
+          }, this.cardsInHand.length,
+      ); 
+	  
+      return result;
+    }				
+            	
     private buildColony(game: Game, openColonies: Array<IColony>): PlayerInput {
       let buildColony = new OrOptions();
       buildColony.title = "Build colony (" + constants.BUILD_COLONY_COST + " MC)";
