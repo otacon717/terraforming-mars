@@ -1596,6 +1596,11 @@ export class Game implements ILoadable<SerializedGame, Game> {
         } else {
           discardedCards.push(projectCard);
           this.dealer.discard(projectCard);
+		  this.log(
+				LogMessageType.DEFAULT,
+				"${0} is revealed and discarded",
+				new LogMessageData(LogMessageDataType.CARD, projectCard.name)
+			); 
         }
       }
 
@@ -1621,6 +1626,11 @@ export class Game implements ILoadable<SerializedGame, Game> {
         } else {
           discardedCards.push(projectCard);
           this.dealer.discard(projectCard);
+		  this.log(
+				LogMessageType.DEFAULT,
+				"${0} is revealed and discarded",
+				new LogMessageData(LogMessageDataType.CARD, projectCard.name)
+			); 
         }
       }
 
@@ -1644,7 +1654,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
     public log(type: LogMessageType, message: string, ...data: LogMessageData[]) {
       this.gameLog.push(new LogMessage(type, message, data));
       this.gameAge++;
-      if (this.gameLog.length > 50 ) {
+      if (this.gameLog.length > 100 ) {
         (this.gameLog.shift());
       }
     }
