@@ -1772,6 +1772,12 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
 
     private passOption(game: Game): PlayerInput {
       return new SelectOption("Pass for this generation", "Pass", () => {
+	  
+	  if (game.turmoilExtension) {
+        if (game.turmoil?.lobby.has(this.id)) {
+			game.addInterrupt(new SelectParty(this, game, "Select where to send a delegate", 1, undefined, undefined, false));
+        }
+	  }
         game.playerHasPassed(this);
         game.log(
           LogMessageType.DEFAULT,
