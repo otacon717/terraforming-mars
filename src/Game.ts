@@ -175,7 +175,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
       }
       this.gameOptions = gameOptions;
       this.shuffleMapOption = gameOptions.shuffleMapOption;
-      this.board = this.boardConstructor(gameOptions.boardName, gameOptions.randomMA, gameOptions.venusNextExtension && gameOptions.includeVenusMA);
+ this.board = this.boardConstructor(gameOptions.boardName, gameOptions.randomMA, gameOptions.venusNextExtension && !gameOptions.includeVenusMA);
 
       this.activePlayer = first.id;
       this.boardName = gameOptions.boardName;
@@ -413,11 +413,9 @@ export class Game implements ILoadable<SerializedGame, Game> {
     // Add Venus Next board colonies and milestone / award
     public setVenusElements(randomMA: boolean, includeVenusMA: boolean) {
       if (randomMA && includeVenusMA) {
-        this.getRandomMilestonesAndAwards(true, 1);
-      } else {
-        if (includeVenusMA) this.milestones.push(...VENUS_MILESTONES);
+		if (includeVenusMA) this.milestones.push(...VENUS_MILESTONES);
         if (includeVenusMA) this.awards.push(...VENUS_AWARDS);
-      }
+      } 
 
       this.addVenusBoardSpaces();
     }
@@ -1598,6 +1596,11 @@ export class Game implements ILoadable<SerializedGame, Game> {
         } else {
           discardedCards.push(projectCard);
           this.dealer.discard(projectCard);
+		  this.log(
+				LogMessageType.DEFAULT,
+				"${0} is revealed and discarded",
+				new LogMessageData(LogMessageDataType.CARD, projectCard.name)
+			); 
         }
       }
 
@@ -1623,6 +1626,11 @@ export class Game implements ILoadable<SerializedGame, Game> {
         } else {
           discardedCards.push(projectCard);
           this.dealer.discard(projectCard);
+		  this.log(
+				LogMessageType.DEFAULT,
+				"${0} is revealed and discarded",
+				new LogMessageData(LogMessageDataType.CARD, projectCard.name)
+			); 
         }
       }
 
@@ -1646,7 +1654,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
     public log(type: LogMessageType, message: string, ...data: LogMessageData[]) {
       this.gameLog.push(new LogMessage(type, message, data));
       this.gameAge++;
-      if (this.gameLog.length > 50 ) {
+      if (this.gameLog.length > 100 ) {
         (this.gameLog.shift());
       }
     }

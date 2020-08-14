@@ -103,6 +103,7 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
     private turmoilScientistsActionUsed: boolean = false;
     public removingPlayers: Array<PlayerId> = [];
     public needsToDraft: boolean | undefined = undefined;
+	public skippedRound: number = 0;
 
     constructor(
         public name: string,
@@ -1347,6 +1348,37 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
       return result;
     }
 
+	private skipRound(game: Game): PlayerInput {
+      let result = new SelectCard(
+          "Sell patents and skip Round(s)",
+          "Sell",
+          this.cardsInHand,
+          (foundCards: Array<IProjectCard>) => {
+
+            this.onStandardProject(StandardProjectType.SELLING_PATENTS);
+            foundCards.forEach((card) => {
+              for (let i = 0; i < this.cardsInHand.length; i++) {
+                if (this.cardsInHand[i].name === card.name) {
+                  this.cardsInHand.splice(i, 1);
+                  break;
+                }
+              }
+              game.dealer.discard(card);
+            });
+			this.skippedRound = foundCards.length;
+            game.log(
+              LogMessageType.DEFAULT,
+              "${0} sold ${1} patents and will skip ${1} actions",
+              new LogMessageData(LogMessageDataType.PLAYER, this.id),
+              new LogMessageData(LogMessageDataType.STRING, foundCards.length.toString()),
+            );
+            return undefined;
+          }, this.cardsInHand.length,
+      ); 
+	  
+      return result;
+    }				
+            	
     private buildColony(game: Game, openColonies: Array<IColony>): PlayerInput {
       let buildColony = new OrOptions();
       buildColony.title = "Build colony (" + constants.BUILD_COLONY_COST + " MC)";
@@ -1743,6 +1775,12 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
 
     private passOption(game: Game): PlayerInput {
       return new SelectOption("Pass for this generation", "Pass", () => {
+	  
+	  if (game.turmoilExtension&& game.soloMode) {
+        if (game.turmoil?.lobby.has(this.id)) {
+			game.addInterrupt(new SelectParty(this, game, "Select where to send a delegate", 1, undefined, undefined, false));
+        }
+	  }
         game.playerHasPassed(this);
         game.log(
           LogMessageType.DEFAULT,
@@ -2042,6 +2080,21 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         return;
       }
 
+	  if(this.skippedRound > 0)
+	  {
+		this.actionsTakenThisRound=2;
+		this.skippedRound--;
+		 this.megaCredits++;
+		game.playerIsFinishedTakingActions();
+		game.log(
+            LogMessageType.DEFAULT,
+            "Next ${0} remaining round(s) will be skipped by ${1}",
+			new LogMessageData(LogMessageDataType.STRING, this.skippedRound.toString()),
+			new LogMessageData(LogMessageDataType.PLAYER, this.id)
+         );
+        return;
+	  }
+	  
       if (game.hasPassedThisActionPhase(this) || this.actionsTakenThisRound >= 2) {
         this.actionsTakenThisRound = 0;
         game.playerIsFinishedTakingActions();
@@ -2186,7 +2239,8 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
       if (this.cardsInHand.length > 0) {
         action.options.push(
             this.sellPatents(game)
-        );
+        );        
+		if(game.getPlayers().length > 1) action.options.push(this.skipRound(game));
       }
 
       // Propose undo action only if you have done one action this turn
