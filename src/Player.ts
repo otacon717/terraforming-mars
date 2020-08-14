@@ -1356,7 +1356,6 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
           (foundCards: Array<IProjectCard>) => {
 
             this.onStandardProject(StandardProjectType.SELLING_PATENTS);
-            this.megaCredits += foundCards.length;
             foundCards.forEach((card) => {
               for (let i = 0; i < this.cardsInHand.length; i++) {
                 if (this.cardsInHand[i].name === card.name) {
