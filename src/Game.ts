@@ -175,7 +175,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
       }
       this.gameOptions = gameOptions;
       this.shuffleMapOption = gameOptions.shuffleMapOption;
-      this.board = this.boardConstructor(gameOptions.boardName, gameOptions.randomMA, gameOptions.venusNextExtension && gameOptions.includeVenusMA);
+ this.board = this.boardConstructor(gameOptions.boardName, gameOptions.randomMA, gameOptions.venusNextExtension && !gameOptions.includeVenusMA);
 
       this.activePlayer = first.id;
       this.boardName = gameOptions.boardName;
@@ -413,11 +413,9 @@ export class Game implements ILoadable<SerializedGame, Game> {
     // Add Venus Next board colonies and milestone / award
     public setVenusElements(randomMA: boolean, includeVenusMA: boolean) {
       if (randomMA && includeVenusMA) {
-        this.getRandomMilestonesAndAwards(true, 1);
-      } else {
-        if (includeVenusMA) this.milestones.push(...VENUS_MILESTONES);
+		if (includeVenusMA) this.milestones.push(...VENUS_MILESTONES);
         if (includeVenusMA) this.awards.push(...VENUS_AWARDS);
-      }
+      } 
 
       this.addVenusBoardSpaces();
     }
