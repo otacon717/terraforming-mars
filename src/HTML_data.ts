@@ -5142,13 +5142,13 @@ export const HTML_DATA: Map<string, string> =
                       ">
                   MINING<br>GUILD
               </span><br>
-      <div class="resource money" style="margin-left:35px;">30</div>&nbsp;&nbsp;
+      <div class="resource money" style="margin-left:35px;">36</div>&nbsp;&nbsp;
       5<div class="production steel"></div>
       <div class="production-box" style="margin-top:5px;margin-left:20px;">
         <div class="production steel"></div>
       </div>
       <div class="description" style="margin-top:-5px;text-align:center;">
-        (You start with 30 MC, 5 steel, and 1 steel production)
+        (You start with 36 MC, 5 steel, and 1 steel production)
       </div>
     </div>
 `],
@@ -5323,7 +5323,7 @@ export const HTML_DATA: Map<string, string> =
                   UNITED NATIONS MARS INITIATIVE
               </div>
       <div class="description" style="text-align:center;margin-left:50px;">
-        <div class="resource money">40</div> &nbsp;&nbsp;&nbsp;(You start with 40 MC.)
+        <div class="resource money">46</div> &nbsp;&nbsp;&nbsp;(You start with 46 MC.)
       </div>
     </div>
 `],
