@@ -29,6 +29,7 @@ interface CreateGameModel {
     solarPhaseOption: boolean;
     shuffleMapOption: boolean;
     promoCardsOption: boolean;
+    HandicapOption: boolean;
     undoOption: boolean;
     includeVenusMA: boolean;
     startingCorporations: number;
@@ -52,12 +53,12 @@ export const CreateGameForm = Vue.component("create-game-form", {
             firstIndex: 1,
             playersCount: 1,
             players: [
-                {index: 1, name: "", color: Color.RED, beginner: false, first: false},
-                {index: 2, name: "", color: Color.GREEN, beginner: false, first: false},
-                {index: 3, name: "", color: Color.YELLOW, beginner: false, first: false},
-                {index: 4, name: "", color: Color.BLUE, beginner: false, first: false},
-                {index: 5, name: "", color: Color.BLACK, beginner: false, first: false},
-                {index: 6, name: "", color: Color.PURPLE, beginner: false, first: false}
+                { index: 1, name: "", color: Color.RED, beginner: false, first: false },
+                { index: 2, name: "", color: Color.GREEN, beginner: false, first: false },
+                { index: 3, name: "", color: Color.YELLOW, beginner: false, first: false },
+                { index: 4, name: "", color: Color.BLUE, beginner: false, first: false },
+                { index: 5, name: "", color: Color.BLACK, beginner: false, first: false },
+                { index: 6, name: "", color: Color.PURPLE, beginner: false, first: false }
             ],
             corporateEra: true,
             prelude: false,
@@ -85,6 +86,7 @@ export const CreateGameForm = Vue.component("create-game-form", {
             solarPhaseOption: false,
             shuffleMapOption: false,
             promoCardsOption: false,
+            HandicapOption: false,
             undoOption: false,
             includeVenusMA: true,
             startingCorporations: 2,
@@ -106,13 +108,13 @@ export const CreateGameForm = Vue.component("create-game-form", {
         }
 
         fetch("/api/clonablegames")
-        .then(response => response.json())
-        .then(onSucces)
-        .catch(_ => alert("Unexpected server response"));        
+            .then(response => response.json())
+            .then(onSucces)
+            .catch(_ => alert("Unexpected server response"));
     },
     watch: {
         playersCount: function (val) {
-          this.initialDraftRounds = val
+            this.initialDraftRounds = val
         }
     },
     methods: {
@@ -179,7 +181,7 @@ export const CreateGameForm = Vue.component("create-game-form", {
                 const boards = Object.values(BoardName);
                 this.board = boards[Math.floor(Math.random() * boards.length)];
             }
-            
+
             const corporateEra = component.corporateEra;
             const prelude = component.prelude;
             const draftVariant = component.draftVariant;
@@ -250,7 +252,7 @@ export const CreateGameForm = Vue.component("create-game-form", {
                 }
             }
 
-            fetch("/game", {method: "PUT", "body": dataToSend, headers: {"Content-Type": "application/json"}})
+            fetch("/game", { method: "PUT", "body": dataToSend, headers: { "Content-Type": "application/json" } })
                 .then(response => response.json())
                 .then(onSucces)
                 .catch(_ => alert("Unexpected server response"));
@@ -325,8 +327,8 @@ export const CreateGameForm = Vue.component("create-game-form", {
                             <label class="form-switch">
                                 <input type="checkbox" v-model="promoCardsOption">
                                 <i class="form-icon"></i> <span v-i18n>Promos</span>&nbsp;<a href="https://github.com/bafolts/terraforming-mars/wiki/Variants#promo-cards" class="tooltip" target="_blank">&#9432;</a>
-                            </label>
-
+                            </label>                            
+							
                         </div>
 
                         <div class="create-game-options-block col3 col-sm-6">
@@ -468,6 +470,7 @@ export const CreateGameForm = Vue.component("create-game-form", {
                 v-bind:colonies="colonies"
                 v-bind:turmoil="turmoil"
                 v-bind:promoCardsOption="promoCardsOption"
+				v-bind:HandicapOption="HandicapOption"
             ></corporations-filter>
 
         </div>

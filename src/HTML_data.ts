@@ -5142,16 +5142,17 @@ export const HTML_DATA: Map<string, string> =
                       ">
                   MINING<br>GUILD
               </span><br>
-      <div class="resource money" style="margin-left:35px;">36</div>&nbsp;&nbsp;
+      <div class="resource money" style="margin-left:35px;">30</div>&nbsp;&nbsp;
       5<div class="production steel"></div>
       <div class="production-box" style="margin-top:5px;margin-left:20px;">
         <div class="production steel"></div>
       </div>
       <div class="description" style="margin-top:-5px;text-align:center;">
-        (You start with 36 MC, 5 steel, and 1 steel production)
+        (You start with 30 MC, 5 steel, and 1 steel production)
       </div>
     </div>
 `],
+
 [CardName.INTERPLANETARY_CINEMATICS,`
     <div class="tag tag1 tag-building"></div>
       <div class="corporationLabel ">CORPORATION</div>
@@ -5323,7 +5324,7 @@ export const HTML_DATA: Map<string, string> =
                   UNITED NATIONS MARS INITIATIVE
               </div>
       <div class="description" style="text-align:center;margin-left:50px;">
-        <div class="resource money">46</div> &nbsp;&nbsp;&nbsp;(You start with 46 MC.)
+        <div class="resource money">40</div> &nbsp;&nbsp;&nbsp;(You start with 40 MC.)
       </div>
     </div>
 `],
@@ -7511,6 +7512,76 @@ export const HTML_DATA: Map<string, string> =
         <div class="description">
             (Add 1 floater here for every Earth tag you have, including this.)
         </div>
+    </div>
+`],
+[CardName.UNITED_NATIONS_MARS_INITIATIVE_HANDICAP,`
+<div class="tag tag1 tag-earth"></div>
+<div class="corporationLabel">CORPORATION</div>
+<div class="contentCorporation">
+  <div class="corporationEffectBox">
+    <div class="corporationEffectBoxLabel">ACTION</div>
+    <div class="resource money">3</div> <span class="red-arrow"></span>
+    <div class="tile rating"></div>*
+    <div class="description" style="text-align:center;margin-top:0px;">
+      (Action:If your Terraform Rating was raised this generation, you may pay 3 MC to raise it 1 step more.)
+    </div>
+  </div>
+  <div class="background-color-active" style="font-size:16px;
+                  width:100px;
+                  color: white;
+                  margin-left:19px;
+                  margin-bottom:8px;
+                  padding:5px;
+                  padding-top:5px;
+                  padding-bottom:5px;
+                  text-align:center;
+                  font-weight:normal;
+                  box-shadow:3px 3px 6px grey;
+                  ">
+              UNITED NATIONS MARS INITIATIVE
+          </div>
+  <div class="description" style="text-align:center;margin-left:50px;">
+    <div class="resource money">46</div> &nbsp;&nbsp;&nbsp;(You start with 46 MC.)
+  </div>
+</div>
+`],
+[CardName.MINING_GUILD_HANDICAP,`
+    <div class="tag tag1 tag-building"></div>
+    <div class="tag tag2 tag-building"></div>
+    <div class="corporationLabel">CORPORATION</div>
+    <div class="contentCorporation">
+      <div class="corporationEffectBox">
+        <div class="corporationEffectBoxLabel">EFFECT</div>
+        <div class="resource steel"></div> /
+        <div class="resource titanium"></div> :
+        <div class="production-box">
+          <div class="production steel"></div>
+        </div>
+        <div class="description" style="text-align:center;margin-top:0px;">
+          (Effect: Each time you get any steel or titanium as a placement bonus on the map, increase your steel production 1 step.)
+        </div>
+      </div>
+      <span class=" mining guild" style="font-size:24px;
+              margin-left:20px;
+                      color:#c9380e;
+                      text-shadow: -1px 0 #333333, 0 1px #333333, 1px 0 #333333, 0 -1px #333333, 2px 2px 2px  black;
+                      display:inline-block;
+                      -webkit-transform:scale(1.5,1); /* Safari and Chrome */
+                      -moz-transform:scale(1.5,1); /* Firefox */
+                      -ms-transform:scale(1.5,1); /* IE 9 */
+                      -o-transform:scale(1.5,1); /* Opera */
+                      transform:scale(1.5,1); /* W3C */
+                      ">
+                  MINING<br>GUILD
+              </span><br>
+      <div class="resource money" style="margin-left:35px;">36</div>&nbsp;&nbsp;
+      5<div class="production steel"></div>
+      <div class="production-box" style="margin-top:5px;margin-left:20px;">
+        <div class="production steel"></div>
+      </div>
+      <div class="description" style="margin-top:-5px;text-align:center;">
+        (You start with 36 MC, 5 steel, and 1 steel production)
+      </div>
     </div>
 `]
 ]);

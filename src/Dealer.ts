@@ -63,6 +63,9 @@ import { Teractor } from "./cards/corporation/Teractor";
 import { TharsisRepublic } from "./cards/corporation/TharsisRepublic";
 import { Thorgate } from "./cards/corporation/Thorgate";
 import { UnitedNationsMarsInitiative } from "./cards/corporation/UnitedNationsMarsInitiative";
+//Handicap
+import { MiningGuild_Handicap } from "./cards/handicap/MiningGuild_Handicap";
+import { UnitedNationsMarsInitiative_Handicap } from "./cards/handicap/UnitedNationsMarsInitiative_Handicap";
 
 // Project Cards
 import { AICentral } from "./cards/AICentral";
@@ -952,6 +955,10 @@ export const ALL_CORP_ERA_PROJECT_CARDS: Array<ICardFactory<IProjectCard>> = [
     { cardName: CardName.VIRUS, factory: Virus },
 ]
 
+export const ALL_REPLACEMENT_CORPORATIONS: Array<ICardFactory<CorporationCard>> = [
+    { cardName: CardName.MINING_GUILD_HANDICAP, factory: MiningGuild_Handicap },
+    { cardName: CardName.UNITED_NATIONS_MARS_INITIATIVE_HANDICAP, factory: UnitedNationsMarsInitiative_Handicap }
+]
 // Function to return a card object by its name
 export function getProjectCardByName(cardName: string): IProjectCard | undefined {
     let cardFactory = ALL_PRELUDE_CARDS.find((cardFactory) => cardFactory.cardName === cardName);
@@ -1019,6 +1026,10 @@ export function getCorporationCardByName(cardName: string): CorporationCard | un
         return new cardFactory.factory();
     }
     cardFactory = ALL_TURMOIL_CORPORATIONS.find((cf) => cf.cardName === cardName);
+    if (cardFactory !== undefined) {
+        return new cardFactory.factory();
+    }
+    cardFactory = ALL_REPLACEMENT_CORPORATIONS.find((cf) => cf.cardName === cardName);
     if (cardFactory !== undefined) {
         return new cardFactory.factory();
     }

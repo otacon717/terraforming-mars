@@ -1,5 +1,5 @@
 import { Player, PlayerId } from "./Player";
-import {Dealer, ALL_VENUS_CORPORATIONS, ALL_CORPORATION_CARDS, ALL_CORP_ERA_CORPORATION_CARDS, ALL_PRELUDE_CORPORATIONS, ALL_COLONIES_CORPORATIONS, ALL_TURMOIL_CORPORATIONS, ALL_PROMO_CORPORATIONS} from "./Dealer";
+import {Dealer, ALL_VENUS_CORPORATIONS, ALL_CORPORATION_CARDS, ALL_CORP_ERA_CORPORATION_CARDS, ALL_PRELUDE_CORPORATIONS, ALL_COLONIES_CORPORATIONS, ALL_TURMOIL_CORPORATIONS, ALL_PROMO_CORPORATIONS,ALL_REPLACEMENT_CORPORATIONS} from "./Dealer";
 import {ISpace} from "./ISpace";
 import {SpaceType} from "./SpaceType";
 import {TileType} from "./TileType";
@@ -58,7 +58,7 @@ import { OrOptions } from "./inputs/OrOptions";
 import { SelectOption } from "./inputs/SelectOption";
 import { LogHelper } from "./components/LogHelper";
 
- 
+
 export interface Score {
   corporation: String;
   playerScore: number;
@@ -253,6 +253,11 @@ export class Game implements ILoadable<SerializedGame, Game> {
         corporationCards.push(...ALL_TURMOIL_CORPORATIONS.map((cf) => new cf.factory()));
       }  
 
+		if (!this.undoOption) {
+			const cardsToReplace = [CardName.MINING_GUILD, CardName.UNITED_NATIONS_MARS_INITIATIVE];
+			corporationCards = corporationCards.filter((corpCard) =>  !cardsToReplace.includes(corpCard.name));
+			corporationCards.push(...ALL_REPLACEMENT_CORPORATIONS.map((cf) => new cf.factory()));
+		}
       // Setup custom corporation list
       const minCorpsRequired = players.length * this.startingCorporations;
       if (gameOptions.customCorporationsList && gameOptions.customCorporationsList.length >= minCorpsRequired) {
@@ -265,7 +270,8 @@ export class Game implements ILoadable<SerializedGame, Game> {
         corporationCards.push(...ALL_COLONIES_CORPORATIONS.map((cf) => new cf.factory()));
         corporationCards.push(...ALL_TURMOIL_CORPORATIONS.map((cf) => new cf.factory()));
         corporationCards.push(...ALL_PROMO_CORPORATIONS.map((cf) => new cf.factory()));
-
+		corporationCards.push(...ALL_REPLACEMENT_CORPORATIONS.map((cf) => new cf.factory()));
+		
         corporationCards = corporationCards.filter(
           (corpCard) => gameOptions !== undefined && gameOptions.customCorporationsList.includes(corpCard.name)
         );

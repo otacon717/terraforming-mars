@@ -10,7 +10,7 @@ import { CardName } from '../../CardName';
 export class MiningGuild implements CorporationCard {
     public name: CardName = CardName.MINING_GUILD;
     public tags: Array<Tags> = [Tags.STEEL, Tags.STEEL];
-    public startingMegaCredits: number = 36;
+    public startingMegaCredits: number = 30;
     public onTilePlaced(player: Player, space: ISpace) {
         if (
             player.isCorporation(this.name)
