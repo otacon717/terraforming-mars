@@ -253,7 +253,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
         corporationCards.push(...ALL_TURMOIL_CORPORATIONS.map((cf) => new cf.factory()));
       }  
 
-		if (!this.undoOption) {
+		if (this.soloTR && !this.soloMode) {
 			const cardsToReplace = [CardName.MINING_GUILD, CardName.UNITED_NATIONS_MARS_INITIATIVE];
 			corporationCards = corporationCards.filter((corpCard) =>  !cardsToReplace.includes(corpCard.name));
 			corporationCards.push(...ALL_REPLACEMENT_CORPORATIONS.map((cf) => new cf.factory()));

@@ -327,7 +327,12 @@ export const CreateGameForm = Vue.component("create-game-form", {
                             <label class="form-switch">
                                 <input type="checkbox" v-model="promoCardsOption">
                                 <i class="form-icon"></i> <span v-i18n>Promos</span>&nbsp;<a href="https://github.com/bafolts/terraforming-mars/wiki/Variants#promo-cards" class="tooltip" target="_blank">&#9432;</a>
-                            </label>                            
+                            </label>
+                            
+                            <label class="form-switch" v-if="playersCount > 1">
+                                <input type="checkbox" v-model="soloTR">
+                                <i class="form-icon"></i> <span v-i18n>Buff</span>
+                            </label>
 							
                         </div>
 
