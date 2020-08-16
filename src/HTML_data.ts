@@ -7574,13 +7574,13 @@ export const HTML_DATA: Map<string, string> =
                       ">
                   MINING<br>GUILD
               </span><br>
-      <div class="resource money" style="margin-left:35px;">36</div>&nbsp;&nbsp;
+      <div class="resource money" style="margin-left:35px;">33</div>&nbsp;&nbsp;
       5<div class="production steel"></div>
       <div class="production-box" style="margin-top:5px;margin-left:20px;">
         <div class="production steel"></div>
       </div>
       <div class="description" style="margin-top:-5px;text-align:center;">
-        (You start with 36 MC, 5 steel, and 1 steel production)
+        (You start with 33 MC, 5 steel, and 1 steel production)
       </div>
     </div>
 `]
