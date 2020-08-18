@@ -2091,19 +2091,20 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         return;
       }
 
+
 	  if(this.skippedRound > 0)
-	  {
-		this.actionsTakenThisRound=2;
-		this.skippedRound--;
-		 this.megaCredits++;
-		game.playerIsFinishedTakingActions();
-		game.log(
-            LogMessageType.DEFAULT,
-            "Next ${0} remaining round(s) will be skipped by ${1}",
-			new LogMessageData(LogMessageDataType.STRING, this.skippedRound.toString()),
-			new LogMessageData(LogMessageDataType.PLAYER, this.id)
-         );
-        return;
+	  {	
+			this.skippedRound--;
+			this.megaCredits++;
+			game.log(
+				LogMessageType.DEFAULT,
+				"Next ${0} remaining round(s) will be skipped by ${1}",
+				new LogMessageData(LogMessageDataType.STRING, this.skippedRound.toString()),
+				new LogMessageData(LogMessageDataType.PLAYER, this.id)
+			 );
+			 this.actionsTakenThisRound = 0;
+			 game.playerIsFinishedTakingActions();
+		return;
 	  }
 	  
       if (game.hasPassedThisActionPhase(this) || this.actionsTakenThisRound >= 2) {
