@@ -108,7 +108,8 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
     constructor(
         public name: string,
         public color: Color,
-        public beginner: boolean) {
+        public beginner: boolean,
+        public handicap: number = 0) {
       this.id = this.generateId();
     }
 
@@ -862,6 +863,7 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
           result.push(playedCard);
         }
       }
+       
       return result;
     }
 
@@ -1062,7 +1064,7 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
                 resources: targetCard.resourceCount,
                 name: targetCard.card.name,
                 calculatedCost: this.getCardCost(game, targetCard.card),
-                cardType: card.cardType
+                cardType: card.cardType 
               }            
             );
           }
@@ -1540,13 +1542,13 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
           colony.name + " - (" + colony.description + ")", 
           "Trade",
           () => {
-            colony.trade(this, game);
             game.log(
               LogMessageType.DEFAULT,
               "${0} traded with ${1}",
               new LogMessageData(LogMessageDataType.PLAYER, this.id),
               new LogMessageData(LogMessageDataType.COLONY, colony.name)
             );
+            colony.trade(this, game);
             return undefined;
           }
         );
@@ -2184,7 +2186,6 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
       if (this.canAfford(8) && !game.allMilestonesClaimed()) {
         const remainingMilestones = new OrOptions();
         remainingMilestones.title = "Claim a milestone";
-        remainingMilestones.title = "Confirm";
         remainingMilestones.options = game.milestones
             .filter(
                 (milestone: IMilestone) =>
@@ -2358,7 +2359,8 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         let card = getProjectCardByName(element.name)!;
         if(element.resourceCount && element.resourceCount > 0) {
           card.resourceCount = element.resourceCount;
-        }
+        }  
+       
         if(card instanceof SelfReplicatingRobots) {
           let targetCards = (element as SelfReplicatingRobots).targetCards;
           if (targetCards !== undefined) {

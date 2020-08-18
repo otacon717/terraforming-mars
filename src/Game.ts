@@ -57,6 +57,7 @@ import { IParty } from "./turmoil/parties/IParty";
 import { OrOptions } from "./inputs/OrOptions";
 import { SelectOption } from "./inputs/SelectOption";
 import { LogHelper } from "./components/LogHelper";
+import { ColonyName } from "./colonies/ColonyName";
 
 
 export interface Score {
@@ -74,6 +75,7 @@ export interface GameOptions {
   boardName: BoardName;
   showOtherPlayersVP: boolean;
   customCorporationsList: Array<CardName>;
+  customColoniesList: Array<ColonyName>;
   solarPhaseOption: boolean;
   shuffleMapOption: boolean;
   promoCardsOption: boolean;
@@ -163,6 +165,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
           boardName: BoardName.ORIGINAL,
           showOtherPlayersVP: false,
           customCorporationsList: [],
+          customColoniesList: [],
           solarPhaseOption: false,
           shuffleMapOption: false,
           promoCardsOption: false,
@@ -240,7 +243,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
       if (this.coloniesExtension) {
         corporationCards.push(...ALL_COLONIES_CORPORATIONS.map((cf) => new cf.factory()));
         this.colonyDealer = new ColonyDealer();
-        this.colonies = this.colonyDealer.drawColonies(players.length);
+        this.colonies = this.colonyDealer.drawColonies(players.length, this.gameOptions.customColoniesList);
         if (this.players.length === 1) {
           players[0].setProduction(Resources.MEGACREDITS, -2);
           this.addInterrupt(new SelectRemoveColony(players[0], this));
@@ -253,11 +256,19 @@ export class Game implements ILoadable<SerializedGame, Game> {
         corporationCards.push(...ALL_TURMOIL_CORPORATIONS.map((cf) => new cf.factory()));
       }  
 
+
 		if (this.soloTR && !this.soloMode) {
 			const cardsToReplace = [CardName.MINING_GUILD, CardName.UNITED_NATIONS_MARS_INITIATIVE];
 			corporationCards = corporationCards.filter((corpCard) =>  !cardsToReplace.includes(corpCard.name));
 			corporationCards.push(...ALL_REPLACEMENT_CORPORATIONS.map((cf) => new cf.factory()));
 		}
+
+      // Add Promo stuff
+      if (this.promoCardsOption) {
+        corporationCards.push(...ALL_PROMO_CORPORATIONS.map((cf) => new cf.factory()));
+      }  
+
+
       // Setup custom corporation list
       const minCorpsRequired = players.length * this.startingCorporations;
       if (gameOptions.customCorporationsList && gameOptions.customCorporationsList.length >= minCorpsRequired) {
@@ -283,6 +294,8 @@ export class Game implements ILoadable<SerializedGame, Game> {
       for (var i = 0; i < players.length; i++) {
         const player = players[i];
         const remainingPlayers = this.players.length - i;
+        
+        player.increaseTerraformRatingSteps(player.handicap, this);
         
         if (!player.beginner ||
           // Bypass beginner choice if any extension is choosen
@@ -437,8 +450,8 @@ export class Game implements ILoadable<SerializedGame, Game> {
 
     private cloneGame(gameId: string, game: Game): void {
       
-        const player = new Player("test", Color.BLUE, false);
-        const player2 = new Player("test2", Color.RED, false);
+        const player = new Player("test", Color.BLUE, false, 0);
+        const player2 = new Player("test2", Color.RED, false, 0);
         let gameToRebuild = new Game(gameId,[player,player2], player);
         Database.getInstance().restoreReferenceGame(gameId, gameToRebuild, function (err) {
           try{
@@ -1484,6 +1497,8 @@ export class Game implements ILoadable<SerializedGame, Game> {
             player.megaCredits += player.oceanBonus;
           }
         });
+      }else{
+        space.player = undefined;
       }
       
       this.tilePlaced(space);
@@ -1683,7 +1698,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
       this.players[0].terraformRatingAtGenerationStart = 14;
       // Single player add neutral player
       // put 2 neutrals cities on board with adjacent forest
-      const neutral = new Player("neutral", Color.NEUTRAL, true);
+      const neutral = new Player("neutral", Color.NEUTRAL, true, 0);
       const space1 = this.board.getRandomCitySpace(0);
       this.addCityTile(neutral, space1.id, SpaceType.LAND);
       const fspace1 = this.board.getForestSpace(
@@ -1729,7 +1744,7 @@ export class Game implements ILoadable<SerializedGame, Game> {
 
       // Rebuild every player objects
       this.players = d.players.map((element: SerializedPlayer)  => {
-        let player = new Player(element.name, element.color, element.beginner);
+        let player = new Player(element.name, element.color, element.beginner, element.handicap);
         return player.loadFromJSON(element);
       });
       
