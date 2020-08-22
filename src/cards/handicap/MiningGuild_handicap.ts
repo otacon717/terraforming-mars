@@ -1,16 +1,16 @@
 
 import { Tags } from "../Tags";
 import { Player } from "../../Player";
-import { CorporationCard } from "./CorporationCard";
+import { CorporationCard } from "./../corporation/CorporationCard";
 import { ISpace } from "../../ISpace";
 import { SpaceBonus } from "../../SpaceBonus";
 import { Resources } from '../../Resources';
 import { CardName } from '../../CardName';
 
-export class MiningGuild implements CorporationCard {
-    public name: CardName = CardName.MINING_GUILD;
+export class MiningGuild_Handicap implements CorporationCard {
+    public name: CardName = CardName.MINING_GUILD_HANDICAP;
     public tags: Array<Tags> = [Tags.STEEL, Tags.STEEL];
-    public startingMegaCredits: number = 30;
+    public startingMegaCredits: number = 33;
     public onTilePlaced(player: Player, space: ISpace) {
         if (
             player.isCorporation(this.name)

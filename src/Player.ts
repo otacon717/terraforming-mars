@@ -1776,23 +1776,34 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
     }
 
     private passOption(game: Game): PlayerInput {
+		
       return new SelectOption("Pass for this generation", "Pass", () => {
-	  
-	  if (game.turmoilExtension&& game.soloMode) {
-        if (game.turmoil?.lobby.has(this.id)) {
-			game.addInterrupt(new SelectParty(this, game, "Select where to send a delegate", 1, undefined, undefined, false));
-        }
-	  }
-        game.playerHasPassed(this);
+        let orOptions = new OrOptions();
+		 
+		 if (game.turmoilExtension && game.turmoil?.lobby.has(this.id)) {
+			orOptions.options.push(new SelectOption("Select where to send a delegate", "Send", () => {
+						game.addInterrupt(new SelectParty(this, game, "Select where to send a delegate", 1, undefined, undefined, false));	
+						game.turmoil?.lobby.delete(this.id);
+          return undefined;
+		 }))};
+        
+
+        orOptions.options.push(new SelectOption("Pass for this generation Confirm", "Pass", () => {
+		game.playerHasPassed(this);
+		this.lastCardPlayed = undefined;
         game.log(
           LogMessageType.DEFAULT,
           "${0} passed",
           new LogMessageData(LogMessageDataType.PLAYER, this.id)
         );
-        this.lastCardPlayed = undefined;
-        return undefined;
-      });
-    }
+		return undefined;
+        }));
+
+        if (orOptions.options.length === 1) return orOptions.options[0].cb();
+        return orOptions;
+		
+	  });
+    };
 
     // Propose a new action to undo last action
     private undoTurnOption(game: Game): PlayerInput {
@@ -2083,19 +2094,20 @@ export class Player implements ILoadable<SerializedPlayer, Player>{
         return;
       }
 
+
 	  if(this.skippedRound > 0)
-	  {
-		this.actionsTakenThisRound=2;
-		this.skippedRound--;
-		 this.megaCredits++;
-		game.playerIsFinishedTakingActions();
-		game.log(
-            LogMessageType.DEFAULT,
-            "Next ${0} remaining round(s) will be skipped by ${1}",
-			new LogMessageData(LogMessageDataType.STRING, this.skippedRound.toString()),
-			new LogMessageData(LogMessageDataType.PLAYER, this.id)
-         );
-        return;
+	  {	
+			this.skippedRound--;
+			this.megaCredits++;
+			game.log(
+				LogMessageType.DEFAULT,
+				"Next ${0} remaining round(s) will be skipped by ${1}",
+				new LogMessageData(LogMessageDataType.STRING, this.skippedRound.toString()),
+				new LogMessageData(LogMessageDataType.PLAYER, this.id)
+			 );
+			 this.actionsTakenThisRound = 0;
+			 game.playerIsFinishedTakingActions();
+		return;
 	  }
 	  
       if (game.hasPassedThisActionPhase(this) || this.actionsTakenThisRound >= 2) {

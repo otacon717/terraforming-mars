@@ -12,6 +12,7 @@ import { ALL_PRELUDE_CORPORATIONS,
          ALL_PRELUDE_CARDS,
          ALL_PRELUDE_PROJECTS_CARDS,
          ALL_PROMO_CORPORATIONS,
+		 ALL_REPLACEMENT_CORPORATIONS,
          ALL_VENUS_CORPORATIONS,
          ALL_VENUS_PROJECTS_CARDS,
          ALL_COLONIES_PROJECTS_CARDS,
@@ -44,6 +45,10 @@ function getCorporationCardByName(cardName: string): ICard | undefined {
         return new cardFactory.factory();
     }
     cardFactory = ALL_PROMO_CORPORATIONS.find((cardFactory) => cardFactory.cardName === cardName);
+    if (cardFactory !== undefined) {
+        return new cardFactory.factory();
+    }
+	cardFactory = ALL_REPLACEMENT_CORPORATIONS.find((cardFactory) => cardFactory.cardName === cardName);
     if (cardFactory !== undefined) {
         return new cardFactory.factory();
     }
