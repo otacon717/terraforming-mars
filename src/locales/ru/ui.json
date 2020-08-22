@@ -19,6 +19,7 @@
     "Blue": "Синий",
     "Black": "Черный",
     "Purple": "Фиолетовый",
+    "TR Boost": "Фора по РТ",
 
     "original": "База",
     "hellas": "Эллада",
@@ -28,6 +29,7 @@
     "Prelude": "Прологи",
     "Venus Next": "Венера",
     "Custom Corporation list": "Настроить корпорации",
+    "Custom Colonies list": "Настроить колонии",
     "World Government Terraforming": "Правительственная поддержка",
 
     "NEXT CARD:": "СЛЕДУЮЩАЯ КАРТА:",
@@ -195,6 +197,7 @@
     "Trade": "Торговать",
     "Pay 3 Titanium": "Заплатить 3 Титана",
     "Select 2 Prelude cards": "Выберите 2 карты Прологов",
-    "Self-Replicating Robots cards": "Карты Роботов-саморепликантов"
+    "Self-Replicating Robots cards": "Карты Роботов-саморепликантов",
+    "Remove colony": "Убрать колонию"
 
 }

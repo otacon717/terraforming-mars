@@ -83,7 +83,7 @@ function requestHandler(
       } else if (req.url.indexOf('/api/game') === 0) {
         apiGetGame(req, res);
       } else if (req.url.startsWith('/api/clonablegames')) {
-        getClonableGames(res);        
+        getClonableGames(res);
       } else {
         notFound(req, res);
       }
@@ -164,7 +164,7 @@ function getClonableGames(res: http.ServerResponse): void {
     res.write(JSON.stringify(allGames));
     res.end();
   });
-}  
+}
 
 function apiGetGames(req: http.IncomingMessage, res: http.ServerResponse): void {
 
@@ -201,8 +201,8 @@ function loadGame(req: http.IncomingMessage, res: http.ServerResponse): void {
 
       let game_id = gameReq.game_id;
 
-      const player = new Player("test", Color.BLUE, false);
-      const player2 = new Player("test2", Color.RED, false);
+      const player = new Player("test", Color.BLUE, false, 0);
+      const player2 = new Player("test2", Color.RED, false, 0);
       let gameToRebuild = new Game(game_id,[player,player2], player);
       Database.getInstance().restoreGameLastSave(game_id, gameToRebuild, function (err) {
         if (err) {
@@ -230,8 +230,8 @@ function loadAllGames(): void {
       return;
     }
     allGames.forEach((game_id)=> {
-      const player = new Player("test", Color.BLUE, false);
-      const player2 = new Player("test2", Color.RED, false);
+      const player = new Player("test", Color.BLUE, false, 0);
+      const player2 = new Player("test2", Color.RED, false, 0);
       let gameToRebuild = new Game(game_id,[player,player2], player);
       Database.getInstance().restoreGameLastSave(game_id, gameToRebuild, function (err) {
         if (err) {
@@ -350,7 +350,7 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
       const gameReq = JSON.parse(body);
       const gameId = generateRandomGameId();
       const players = gameReq.players.map((obj: any) => {
-        return new Player(obj.name, obj.color, obj.beginner);
+        return new Player(obj.name, obj.color, obj.beginner, obj.handicap);
       });
       let firstPlayer = players[0];
       for (let i = 0; i < gameReq.players.length; i++) {
@@ -370,6 +370,7 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
         boardName: gameReq.board,
         showOtherPlayersVP: gameReq.showOtherPlayersVP,
         customCorporationsList: gameReq.customCorporationsList,
+        customColoniesList: gameReq.customColoniesList,
         solarPhaseOption: gameReq.solarPhaseOption,
         promoCardsOption: gameReq.promoCardsOption,
         undoOption: gameReq.undoOption,
@@ -382,7 +383,7 @@ function createGame(req: http.IncomingMessage, res: http.ServerResponse): void {
         randomMA: gameReq.randomMA,
         shuffleMapOption: gameReq.shuffleMapOption,
       } as GameOptions;
-    
+
       const game = new Game(gameId, players, firstPlayer, gameOptions);
       games.set(gameId, game);
       game.getPlayers().forEach((player) => {
@@ -423,7 +424,7 @@ function getMilestones(game: Game): Array<ClaimedMilestoneModel> {
       scores
     });
   }
-  
+
   return milestoneModels;
 }
 
@@ -451,12 +452,12 @@ function getAwards(game: Game): Array<FundedAwardModel>  {
       scores: scores
     })
   }
-  
+
   return awardModels;
 }
 
 function getCorporationCard(player: Player): CardModel | undefined {
-  if (player.corporationCard == undefined) return undefined;
+  if (player.corporationCard === undefined) return undefined;
 
   return ({
     name: player.corporationCard.name,
@@ -531,7 +532,6 @@ function getPlayer(player: Player, game: Game): string {
 
 function getCardsAsCardModel(cards: Array<ICard>, showResouces: boolean = true): Array<CardModel> {
   let result:Array<CardModel> = [];
-
   cards.forEach((card) => {
     result.push({name: card.name, resources: (card.resourceCount !== undefined && showResouces ? card.resourceCount : undefined), calculatedCost : 0, cardType : CardType.AUTOMATED});
   });
@@ -609,7 +609,7 @@ function getWaitingFor(
           .players.map((player) => {
             if(player === "NEUTRAL") {
               return "NEUTRAL";
-            }  
+            }
             else {
               return player.id;
             }
@@ -714,15 +714,15 @@ function getTurmoil(game: Game): TurmoilModel | undefined {
       }
       else {
         return {color: Color.NEUTRAL, number: number};
-      } 
+      }
     });
 
     let distant;
     if (game.turmoil.distantGlobalEvent) {
       distant = {
-        name: game.turmoil.distantGlobalEvent.name, 
+        name: game.turmoil.distantGlobalEvent.name,
         description: game.turmoil.distantGlobalEvent.description,
-        revealed: game.turmoil.distantGlobalEvent.revealedDelegate, 
+        revealed: game.turmoil.distantGlobalEvent.revealedDelegate,
         current: game.turmoil.distantGlobalEvent.currentDelegate
       };
     }
@@ -730,9 +730,9 @@ function getTurmoil(game: Game): TurmoilModel | undefined {
     let comming;
     if (game.turmoil.commingGlobalEvent) {
       comming = {
-        name: game.turmoil.commingGlobalEvent.name, 
+        name: game.turmoil.commingGlobalEvent.name,
         description: game.turmoil.commingGlobalEvent.description,
-        revealed: game.turmoil.commingGlobalEvent.revealedDelegate, 
+        revealed: game.turmoil.commingGlobalEvent.revealedDelegate,
         current: game.turmoil.commingGlobalEvent.currentDelegate}
       ;
     }
@@ -740,20 +740,20 @@ function getTurmoil(game: Game): TurmoilModel | undefined {
     let current;
     if (game.turmoil.currentGlobalEvent) {
       current = {
-        name: game.turmoil.currentGlobalEvent.name, 
+        name: game.turmoil.currentGlobalEvent.name,
         description: game.turmoil.currentGlobalEvent.description,
-        revealed: game.turmoil.currentGlobalEvent.revealedDelegate, 
+        revealed: game.turmoil.currentGlobalEvent.revealedDelegate,
         current: game.turmoil.currentGlobalEvent.currentDelegate
       };
     }
 
     return {
-      chairman: chairman, 
-      ruling: ruling, 
-      dominant: dominant, 
-      parties: parties, 
-      lobby: lobby, 
-      reserve: reserve, 
+      chairman: chairman,
+      ruling: ruling,
+      dominant: dominant,
+      parties: parties,
+      lobby: lobby,
+      reserve: reserve,
       distant: distant,
       comming: comming,
       current: current
@@ -788,9 +788,9 @@ function getParties(game: Game): Array<PartyModel> | undefined{
         }
       }
       return {
-        name: party.name, 
-        description: party.description, 
-        partyLeader: partyLeader, 
+        name: party.name,
+        description: party.description,
+        partyLeader: partyLeader,
         delegates: delegates
       };
     });
